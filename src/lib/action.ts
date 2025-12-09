@@ -2756,7 +2756,6 @@ export const createClass = async (state: stateType, data: ClassInputs) => {
         courseId: data.courseId,
         semester: data.semester,
         lecturerId: data.lecturerId,
-        roomId: data.roomId,
         periodId: data.periodId,
       }
     });
@@ -2787,7 +2786,6 @@ export const updateClass = async (state: stateType, data: ClassInputs) => {
         courseId: data.courseId,
         semester: data.semester,
         lecturerId: data.lecturerId,
-        roomId: data.roomId,
         periodId: data.periodId,
       }
     });
@@ -3013,11 +3011,20 @@ export const createScheduleDetail = async (state: stateType, data: ScheduleDetai
         academicClassId: data?.academicClass,
         dayName: data?.dayName as Day,
         timeId: data?.time,
-        
+        roomId: data?.roomId,
+      },
+    });
+
+    const scheduleDetailExist = await prisma.scheduleDetail.count({
+      where: {
+        scheduleId: data?.scheduleId,
+        dayName: data?.dayName as Day,
+        timeId: data?.time,
+        roomId: data?.roomId,
       },
     });
     
-    return { success: true, error: false, message: "Jadwal berhasil ditambahkan" };
+    return { success: true, error: false, message: `${scheduleDetailExist > 1 ? "Jadwal baru bentrok!" : "Jadwal berhasil ditambahkan"}` };
   } catch (err) {
     logger.error(err);
     
@@ -3031,7 +3038,46 @@ export const createScheduleDetail = async (state: stateType, data: ScheduleDetai
       }
     }
   }
-}
+};
+export const updateScheduleDetail = async (state: stateType, data: ScheduleDetailInputs) => {
+  try {
+    await prisma.scheduleDetail.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        scheduleId: data?.scheduleId,
+        academicClassId: data?.academicClass,
+        dayName: data?.dayName as Day,
+        timeId: data?.time,
+        roomId: data?.roomId,
+      },
+    });
+
+    const scheduleDetailExist = await prisma.scheduleDetail.count({
+      where: {
+        scheduleId: data?.scheduleId,
+        dayName: data?.dayName as Day,
+        timeId: data?.time,
+        roomId: data?.roomId,
+      },
+    });
+    
+    return { success: true, error: false, message: `${scheduleDetailExist > 1 ? "Jadwal bentrok!" : "Jadwal berhasil diubah"}` };
+  } catch (err) {
+    logger.error(err);
+    
+    try {
+      handlePrismaError(err)
+    } catch (error) {
+      if (error instanceof AppError) {
+        return { success: false, error: true, message: error.message };
+      } else {
+        return { success: false, error: true, message: "Terjadi kesalahan tidak diketahui." }
+      }
+    }
+  }
+};
 export const deleteScheduleDetail = async (state: stateType, data: FormData) => {
   try {
     const id = data.get("id") as string;

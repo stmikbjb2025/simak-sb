@@ -268,6 +268,7 @@ export interface ScheduleDetailTypes {
   academicClass: AcademicClassTypes
   dayName: Day
   time: TimeTypes
+  room: RoomTypes
 }
 
 export interface KhsTypes {

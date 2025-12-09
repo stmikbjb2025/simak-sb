@@ -226,9 +226,6 @@ const FormContainer = async (
         const lecturerClass = await prisma.lecturer.findMany({
           select: { id: true, name: true, frontTitle: true, backTitle: true },
         });
-        const rooms = await prisma.room.findMany({
-          select: { id: true, name: true },
-        });
 
         const [dataCourseByCurriculum, dataCountcourse] = await prisma.$transaction([
           prisma.curriculumDetail.findMany({
@@ -281,7 +278,7 @@ const FormContainer = async (
           }
         ))
 
-        relatedData = { period, lecturers: lecturerClass, rooms, courses: dataFilteredCourse };
+        relatedData = { period, lecturers: lecturerClass, courses: dataFilteredCourse };
         break;
       case "classDetail":
         const dataClass = data;
@@ -360,13 +357,15 @@ const FormContainer = async (
             { timeStart: "asc" },
           ]
         });
+        const rooms = await prisma.room.findMany({
+          select: { id: true, name: true },
+        });
         const classSchedule = await prisma.academicClass.findMany({
           where: {
             periodId: data.periodId,
           },
           include: {
             lecturer: true,
-            room: true,
             course: {
               include: {
                 major: true
@@ -392,7 +391,7 @@ const FormContainer = async (
         const classHaveScheduleId = new Set(classHaveSchedule.map((item: any) => item.academicClassId));
         const classPassToForm = classSchedule.filter((item: any) => !classHaveScheduleId.has(item.id));
 
-        relatedData = { period: periodScheduleDetail, time: time, academicClass: classPassToForm };
+        relatedData = { period: periodScheduleDetail, time: time, rooms: rooms, academicClass: classPassToForm };
         break;
       case "rpl":
         const curriculum = await prisma.curriculumDetail.findMany({
