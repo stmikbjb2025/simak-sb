@@ -10,6 +10,9 @@ import { coursesClearing, totalBobot, totalSks } from "@/lib/utils";
 import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 import { AnnouncementKhs, Course, KrsDetail, StudentStatus } from "@/generated/prisma/client";
+import { exportSchedule } from "@/lib/excel/exportSchedule";
+import { ScheduleDetailTypes } from "@/lib/types/datatypes/type";
+import { dayName } from "@/lib/setting";
 
 export async function GET(req: NextRequest) {
   try {
@@ -612,6 +615,99 @@ export async function GET(req: NextRequest) {
             'Content-Disposition': `attachment; filename="DAFTAR MAHASISWA Reg.Pagi-Sore (${dataPeriod?.name}).xlsx"`,
           },
         });
+      case "schedule":
+        // Implement schedule export if needed
+        const sortOrder: string[] = dayName;
+
+        const dataScheduleDetail = await prisma.scheduleDetail.findMany({
+          where: {
+            scheduleId: uid,
+          },
+          select: {
+            schedule: {
+              select: {
+                period: true,
+              }
+            },
+            dayName: true,
+            time: true,
+            room: true,
+            academicClass: {
+              select: {
+                name: true,
+                semester: true,
+                lecturer: {
+                  select: {
+                    frontTitle: true,
+                    name: true,
+                    backTitle: true,
+                  }
+                },
+                course: {
+                  select: {
+                    name: true,
+                    code: true,
+                    sks: true,
+                    major: true,
+                  }
+                }
+              }
+            },
+          },
+          orderBy: [
+            {
+              dayName: "desc"
+            },
+            {
+              time: {
+                timeStart: "asc"
+              }
+            },
+            {
+              academicClass: {
+                course: {
+                  name: "asc"
+                }
+              }
+            }
+          ]
+        });
+
+        if (Object.keys(dataScheduleDetail).length === 0) {
+          return new NextResponse('Data penjadwalan tidak ditemukan!', { status: 404 });
+        }
+
+        const regPagi: { [key: string]: any[] } | {} = dataScheduleDetail.reduce((acc: { [key: string]: any[] }, item: ScheduleDetailTypes) => {
+          sortOrder.forEach((day: string, index: number) => {
+            if (item.dayName === day && item.time.timeStart.getHours() < 16) acc[day] = (acc[day] || []).concat(item);
+          });
+          return acc;
+        }, {})
+
+        const regSore: { [key: string]: any[] } | {} = dataScheduleDetail.reduce((acc: { [key: string]: any[] }, item: ScheduleDetailTypes) => {
+          sortOrder.forEach((day: string, index: number) => {
+            if (item.dayName === day && item.time.timeStart.getHours() >= 16) acc[day] = (acc[day] || []).concat(item);
+          });
+          return acc;
+        }, {})
+        
+        bufferFile = await exportSchedule({
+          data: {
+            period: dataScheduleDetail[0]?.schedule?.period,
+            scheduleDetail: [
+              { title: "REG.PAGI", schedules: Object.values(regPagi).toReversed() },
+              { title: "REG.SORE", schedules: Object.values(regSore).toReversed() },
+            ],
+          }
+        })
+        return new NextResponse(bufferFile, {
+          headers: {
+            'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Disposition': `attachment; filename="JADWAL PERKULIAHAN ${dataScheduleDetail[0]?.schedule?.period.name.toUpperCase()}.xlsx"`,
+          },
+        });
+        
+        // return new NextResponse('Someting wrong!', { status: 404 });
       default:
         return new NextResponse('Someting wrong!', { status: 400 });
     }

@@ -31,6 +31,11 @@ const menuItems = [
         href: "/list/periods",
       },
       {
+        icon: "/icon/major.svg",
+        label: "Program Studi",
+        href: "/list/majors",
+      },
+      {
         icon: "/icon/reregister.svg",
         label: "Her Registrasi",
         href: "/list/reregistrations",
@@ -66,11 +71,6 @@ const menuItems = [
         href: "/list/operators",
       },
       {
-        icon: "/icon/major.svg",
-        label: "Program Studi",
-        href: "/list/majors",
-      },
-      {
         icon: "/icon/course.svg",
         label: "Mata Kuliah",
         href: "/list/courses",
@@ -80,13 +80,11 @@ const menuItems = [
         label: "Lokal/Ruangan",
         href: "/list/rooms",
       },
-
       {
         icon: "/icon/schedule.svg",
         label: "Jadwal",
         href: "/list/schedules",
       },
-
       {
         icon: "/icon/event.svg",
         label: "Events",

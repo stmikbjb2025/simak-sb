@@ -50,7 +50,7 @@ const ScheduleDetailForm = ({ setOpen, type, data, relatedData }: FormProps) => 
       <div className="flex justify-between flex-wrap gap-4">
         {data && (
           <>
-            <div className="visible">
+            <div className="hidden">
               <InputField
                 label="id"
                 name="id"
@@ -59,7 +59,7 @@ const ScheduleDetailForm = ({ setOpen, type, data, relatedData }: FormProps) => 
                 error={errors?.id}
               />
             </div>
-            <div className="visible">
+            <div className="hidden">
               <InputField
                 label="scheduleId"
                 name="scheduleId"
