@@ -63,16 +63,12 @@ const RecapitulationDetailByCardPage = async (
         <FilterSearch data={dataFilter} />
         <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           <div className="flex items-center gap-4 self-end">
-            <a
-              href={`/api/excel?u=${id}&type=${type}`}
-              download
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-medium w-fit py-2 px-4 text-gray-900 bg-primary/70 rounded-full cursor-pointer hover:bg-primary"
-            >
-              Export .xlsx
-            </a>
-            <ButtonPdfDownload id={id} type={type}>
+            <ButtonPdfDownload fileType="excel" id={id} type={type}>
+              <div className="text-xs font-medium w-fit py-2 px-4 text-gray-900 bg-primary/70 rounded-full cursor-pointer hover:bg-primary">
+                Export .xlsx
+              </div>
+            </ButtonPdfDownload>
+            <ButtonPdfDownload fileType="pdf" id={id} type={type}>
               <div className={`w-fit h-fit py-2 px-4 text-xs text-gray-900 font-medium flex items-center justify-center rounded-full bg-primary`}>
                 Export .pdf
               </div>

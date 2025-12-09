@@ -3,15 +3,15 @@
 import { ButtonPdfDownloadProps } from "@/lib/types/pdftype";
 
 
-const ButtonPdfDownload = ({ id, type, children }: ButtonPdfDownloadProps) => {
+const ButtonPdfDownload = ({ id, fileType, type, children }: ButtonPdfDownloadProps) => {
   return (
     <a
-      href={`/api/pdf?u=${id}&type=${type}`}
+      href={`/api/${fileType}?u=${id}&type=${type}`}
       download
       target="_blank"
       rel="noopener noreferrer"
     >
-      {children ? children : "Export .pdf"}
+      {children ? children : "Export"}
     </a>
   )
 }

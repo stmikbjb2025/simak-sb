@@ -213,7 +213,7 @@ const TranscriptStudentPage = async () => {
           </div>
         </div>
         <div className="bg-white w-full lg:w-1/4 flex flex-col gap-4 p-4 rounded-md">
-          <ButtonPdfDownload id={dataStudent.id} type="transcript">
+          <ButtonPdfDownload fileType="pdf" id={dataStudent.id} type="transcript">
             <div className={`sm:w-8 md:w-full sm:h-16 md:h-18 gap-2 flex items-center justify-center rounded-md bg-primary-dark hover:bg-primary-dark/90`}>
               <Image src={`/icon/printPdf.svg`} alt={`icon-print}`} width={28} height={28} />
               <span className="text-white font-medium text-sm">Cetak Transkip</span>
