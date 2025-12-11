@@ -679,14 +679,14 @@ export async function GET(req: NextRequest) {
 
         const regPagi: { [key: string]: any[] } | {} = dataScheduleDetail.reduce((acc: { [key: string]: any[] }, item: ScheduleDetailTypes) => {
           sortOrder.forEach((day: string, index: number) => {
-            if (item.dayName === day && item.time.timeStart.getHours() < 16) acc[day] = (acc[day] || []).concat(item);
+            if (item.dayName === day && item.time.timeStart.getHours() < 15) acc[day] = (acc[day] || []).concat(item);
           });
           return acc;
         }, {})
 
         const regSore: { [key: string]: any[] } | {} = dataScheduleDetail.reduce((acc: { [key: string]: any[] }, item: ScheduleDetailTypes) => {
           sortOrder.forEach((day: string, index: number) => {
-            if (item.dayName === day && item.time.timeStart.getHours() >= 16) acc[day] = (acc[day] || []).concat(item);
+            if (item.dayName === day && item.time.timeStart.getHours() >= 15) acc[day] = (acc[day] || []).concat(item);
           });
           return acc;
         }, {})
