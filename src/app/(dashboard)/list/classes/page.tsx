@@ -39,7 +39,6 @@ const ClassListPage = async (
               { lecturer: { name: { contains: value, mode: "insensitive" } } },
               { course: { name: { contains: value, mode: "insensitive" } } },
               { course: { code: { contains: value, mode: "insensitive" } } },
-              { room: { name: { contains: value, mode: "insensitive" } } },
             ]
             break;
           case "filter":
@@ -85,7 +84,6 @@ const ClassListPage = async (
         },
         period: true,
         lecturer: true,
-        room: true,
         academicClassDetail: true,
       },
       orderBy: [
@@ -130,11 +128,6 @@ const ClassListPage = async (
       className: "hidden md:table-cell",
     },
     {
-      header: "Ruang",
-      accessor: "room",
-      className: "hidden md:table-cell",
-    },
-    {
       header: "Actions",
       accessor: "action",
       className: "hidden md:table-cell",
@@ -148,7 +141,6 @@ const ClassListPage = async (
       courseId: item.course.id,
       course: item.course,
       lecturerId: item.lecturer.id,
-      roomId: item.room.id,
       periodId: item.period.id,
       periodName: item.period.name,
       semester: item.semester,
@@ -195,7 +187,6 @@ const ClassListPage = async (
             )}
           </p>
         </td>
-        <td className="hidden md:table-cell">{item?.room?.name}</td>
         <td>
           <div className="hidden md:flex items-center gap-2">
             {canViewData && (

@@ -193,21 +193,6 @@ const ClassForm = ({ setOpen, type, data, relatedData }: FormProps) => {
                   }))}
                 />
               </div>
-              <div className="flex flex-col gap-2 w-full md:w-1/3">
-                <InputSelect
-                  control={control}
-                  label="Ruang Kelas"
-                  name="roomId"
-                  placeholder="Pilih Ruang Kelas"
-                  defaultValue={data?.roomId}
-                  error={errors?.roomId}
-                  required={true}
-                  options={rooms.map((item: Record<string, string | number>) => ({
-                    value: item.id,
-                    label: item.name,
-                  }))}
-                />
-              </div>
             </div>
             {state?.error && (<span className="text-xs text-red-400">{state.message.toString()}</span>)}
             <button className="bg-blue-400 text-white p-2 rounded-md">

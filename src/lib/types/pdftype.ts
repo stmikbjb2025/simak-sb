@@ -1,4 +1,4 @@
-export type PdfType = "reregister"
+export type type = "reregister"
   | "assessment"
   | "khs"
   | "krs"
@@ -9,6 +9,7 @@ export type PdfType = "reregister"
   | "studentsRegisteredKrs"
   | "studentsUnregisteredKrs" 
   | "studentsTakingThesis" 
+  | "schedule" 
   | "studentsTakingInternship";
 
 export interface GeneratePdfProps {
@@ -18,11 +19,12 @@ export interface GeneratePdfProps {
 
 export interface ButtonPdfDownloadProps {
   id: string;
-  type: PdfType;
+  fileType?: "pdf" | "excel";
+  type: type;
   children: React.ReactNode;
 };
 
 export interface RenderPdfProps {
-  type: PdfType;
+  type: type;
   data: any;
 }

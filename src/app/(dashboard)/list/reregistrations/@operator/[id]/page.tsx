@@ -204,7 +204,7 @@ const ReregisterSinglePage = async (
           <div className="flex items-center gap-2">
             <div className="hidden md:flex items-center gap-2">
               {(session?.roleName === "admin" && item.isStatusForm) && (
-                <ButtonPdfDownload type="reregister" id={`${item.reregister.id}:${item.student.id}`}>
+                <ButtonPdfDownload fileType="pdf" type="reregister" id={`${item.reregister.id}:${item.student.id}`}>
                   <div className={`w-7 h-7 flex items-center justify-center rounded-full bg-primary-dark`}>
                     <Image src={`/icon/printPdf.svg`} alt={`icon-print}`} width={20} height={20} />
                   </div>

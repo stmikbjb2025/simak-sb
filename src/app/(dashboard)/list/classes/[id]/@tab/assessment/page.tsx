@@ -296,7 +296,7 @@ const ClassSingleTabAssessmentPage = async (
             >
               Export .xlsx
             </a>
-            <ButtonPdfDownload id={id} type="assessment">
+            <ButtonPdfDownload fileType="pdf" id={id} type="assessment">
               <div className={`w-fit h-fit py-2 px-4 text-xs font-medium flex items-center justify-center rounded-full bg-primary/70 hover:bg-primary`}>
                 Export .pdf
               </div>

@@ -344,7 +344,6 @@ export const classSchema = z.object({
   name: z.string().min(1, { message: "Nama kelas harus diisi" }),
   courseId: z.string().min(1, { message: "Pilih mata kuliah" }),
   participants: z.coerce.number().optional(),
-  roomId: z.coerce.number().min(1, { message: "Pilih ruang/lokal" }),
   lecturerId: z.string().min(1, { message: "Pilih dosen pengampu" }),
   periodId: z.string().min(1, { message: "Pilih periode akademik" }),
   major: z.string().optional(),
@@ -378,7 +377,8 @@ export const scheduleDetailSchema = z.object({
   scheduleId: z.string().min(1, { message: "Schedule ID tidak ditemukan!" }),
   academicClass: z.string().min(1, { message: "kelas harus diisi" }),
   time: z.string().min(1, { message: "waktu pelajaran harus diisi" }),
-  dayName: z.string().min(1, { message: "Hari harus diisi" })
+  dayName: z.string().min(1, { message: "Hari harus diisi" }),
+  roomId: z.coerce.number().min(1, { message: "Pilih ruang/lokal" }),
 })
 
 export type ScheduleDetailInputs = z.infer<typeof scheduleDetailSchema>;

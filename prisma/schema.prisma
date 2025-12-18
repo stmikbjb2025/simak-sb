@@ -158,9 +158,9 @@ model CurriculumDetail {
 
 model Lecturer {
   id               String             @id @default(uuid())
-  npk              String?
-  nidn             String?
-  nuptk            String?
+  npk              String?            @unique
+  nidn             String?            @unique
+  nuptk            String?            @unique
   name             String?
   frontTitle       String?
   backTitle        String?
@@ -240,11 +240,11 @@ model Position {
 }
 
 model Room {
-  id            Int             @id @default(autoincrement())
-  name          String?
-  location      Location?
-  capacity      Int?
-  academicClass AcademicClass[]
+  id              Int              @id @default(autoincrement())
+  name            String?
+  location        Location?
+  capacity        Int?
+  scheduleDetails ScheduleDetail[]
 
   @@map("sb25_rooms")
 }
@@ -362,14 +362,12 @@ model AcademicClass {
   lecturer            Lecturer?             @relation(fields: [lecturerId], references: [id], onDelete: Restrict)
   courseId            String?
   course              Course?               @relation(fields: [courseId], references: [id], onDelete: Restrict)
-  roomId              Int?
-  room                Room?                 @relation(fields: [roomId], references: [id], onDelete: Restrict)
   semester            Int?
   scheduleDetail      ScheduleDetail[]
   academicClassDetail AcademicClassDetail[]
   presence            Presence[]
 
-  @@unique([periodId, name, lecturerId, courseId, roomId])
+  @@unique([periodId, name, courseId], name: "unique_class_per_course")
   @@map("sb25_academic_classes")
 }
 
@@ -443,6 +441,8 @@ model ScheduleDetail {
   dayName         Day            @default(MINGGU)
   timeId          String?
   time            Time?          @relation(fields: [timeId], references: [id], onDelete: Restrict)
+  roomId          Int?
+  room            Room?          @relation(fields: [roomId], references: [id], onDelete: Restrict)
 
   @@unique([academicClassId, timeId])
   @@map("sb25_schedule_details")

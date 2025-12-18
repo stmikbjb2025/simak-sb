@@ -268,6 +268,7 @@ export interface ScheduleDetailTypes {
   academicClass: AcademicClassTypes
   dayName: Day
   time: TimeTypes
+  room: RoomTypes
 }
 
 export interface KhsTypes {
@@ -321,6 +322,10 @@ export interface KhsDetailTypes {
   successor?: KhsDetailBaseTypes
 }
 
+interface testTypes {
+  id: number,
+  name: string,
+};
 
 
 export enum AnnouncementKhs {

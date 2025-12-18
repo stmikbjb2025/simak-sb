@@ -43,11 +43,11 @@ const BigCalendarContainer = async ({
               code: true,
             },
           },
-          room: true,
           lecturerId: true,
           lecturer: true,
         }
       },
+      room: true,
       time: true,
       dayName: true,
     },
@@ -62,7 +62,7 @@ const BigCalendarContainer = async ({
 
 
   const data = dataRes.map((lesson: any) => ({
-    title: `Kelas ${lesson.academicClass.name} | (${lesson.academicClass.course.code}) ${lesson.academicClass.course.name}`,
+    title: `Kelas ${lesson.academicClass.name} -- Ruang ${lesson.room.name} -- (${lesson.academicClass.course.code}) ${lesson.academicClass.course.name}`,
     start: lesson.time.timeStart,
     end: lesson.time.timeFinish,
     dayName: lesson.dayName,

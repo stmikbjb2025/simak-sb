@@ -220,7 +220,7 @@ const TranscriptAdvisorDetailPage = async (
           </div>
         </div>
         <div className="bg-white w-full lg:w-1/4 flex flex-col gap-4 p-4 rounded-md">
-          <ButtonPdfDownload id={id} type="transcript">
+          <ButtonPdfDownload fileType="pdf" id={id} type="transcript">
             <div className={`w-full py-4 gap-2 flex items-center justify-center rounded-md bg-primary-dark hover:bg-primary-dark/90`}>
               <Image src={`/icon/printPdf.svg`} alt={`icon-print}`} width={28} height={28} />
               <span className="text-white font-medium text-sm">Cetak Transkip</span>
