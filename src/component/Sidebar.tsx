@@ -39,12 +39,12 @@ const Sidebar = ({ menuItems }: { menuItems: MenuItem[] }) => {
             {
               el.items.map(item => (
                 <Link
-                  className={`flex items-center justify-start md:justify-center lg:justify-start  gap-4 w-full text-gray-400 py-2 md:px-2 rounded-md hover:bg-primary-light/50 ${pathname === item.href ? "md:bg-primary-light" : ""}`}
+                  className={`flex items-center justify-start md:justify-center lg:justify-start  gap-4 w-full text-gray-400 py-2 md:px-2 rounded-md hover:bg-primary-light/50 ${pathname.includes(item.href) ? "md:bg-primary-light" : ""}`}
                   href={item.href}
                   key={item.href}
                 >
                   <Image src={item.icon} width={20} height={20} alt={item.label} />
-                  <span className={`md:hidden lg:block ${pathname === item.href ? "text-black font-semibold" : ""}`}>{item.label}</span>
+                  <span className={`md:hidden lg:block ${pathname.includes(item.href) ? "text-black font-semibold" : ""}`}>{item.label}</span>
                 </Link>
               ))
             }

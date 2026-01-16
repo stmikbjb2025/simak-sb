@@ -43,7 +43,7 @@ const Navbar = async () => {
         className="flex md:hidden items-center justify-center gap-2 mx-4"
       >
         <Image src={"/logo.png"} width={32} height={32} alt={"logo"} />
-        <span className="text-sm font-semibold">STIMIK BANJARBARU</span>
+        <span className="text-sm font-semibold">STMIK BANJARBARU</span>
       </Link>
 
       {/* ICON AND USER */}

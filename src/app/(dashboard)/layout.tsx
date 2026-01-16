@@ -17,12 +17,12 @@ export default async function DashboardLayout({
           className="flex items-center justify-center lg:justify-start gap-2"
         >
           <Image src={"/logo.png"} width={32} height={32} alt={"logo"} />
-          <span className="hidden lg:block">STIMIK</span>
+          <span className="hidden lg:block">SIMAK</span>
         </Link>
         <SidebarContainer />
       </div>
       {/* RIGHT */}
-      <div className="bg-[#f3f5fa] w-[100%] md:w-[90%] lg:w-[84%] xl:w-[86%] overflow-hidden flex flex-col">
+      <div className="bg-[#f3f5fa] w-full md:w-[90%] lg:w-[84%] xl:w-[86%] overflow-hidden flex flex-col">
         <Navbar />
         {children}
       </div>
