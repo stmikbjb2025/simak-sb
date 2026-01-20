@@ -28,7 +28,7 @@ export const login = async (state: { success: boolean, error: boolean, message: 
 
 export const logout = async () => {
   await deleteSession();
-  redirect('/')
+  redirect('/sign-in');
 }
 
 export const changePassword = async (state: { success: boolean, error: boolean, message: string }, data: ChangePasswordInputs) => {
