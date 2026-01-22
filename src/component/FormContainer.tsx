@@ -167,6 +167,7 @@ const FormContainer = async (
       case "assessment":
         const gradeComponents = await prisma.gradeComponent.findMany({
           select: { id: true, name: true },
+          orderBy: [{ name: 'asc' }],
         });
         relatedData = { allGradeComponent: gradeComponents };
         break;
