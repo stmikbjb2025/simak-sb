@@ -98,6 +98,7 @@ model Course {
   krsDetail        KrsDetail[]
   khsDetail        KhsDetail[]
 
+  @@unique([majorId, name, sks], name: "unique_name_sks_per_major")
   @@map("sb25_courses")
 }
 
