@@ -31,15 +31,13 @@ const CourseListPage = async (
     for (const [key, value] of Object.entries(queryParams)) {
       if (value !== undefined) {
         switch (key) {
+          case "filter":
+            query.majorId = parseInt(value);
+            break;
           case "search":
             query.OR = [
               { code: { contains: value, mode: "insensitive" } },
               { name: { contains: value, mode: "insensitive" } },
-            ]
-            break;
-          case "filter":
-            query.OR = [
-              { majorId: parseInt(value) }
             ]
             break;
           default:
