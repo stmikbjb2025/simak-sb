@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useActionState, useCallback, useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import InputField from "../InputField";
 import { LecturerInputs, lecturerSchema } from "@/lib/formValidationSchema";
 import { createLecturer, updateLecturer } from "@/lib/action";
@@ -74,61 +74,97 @@ const LecturerForm = ({ setOpen, type, data, relatedData }: FormProps) => {
           </div>
         )}
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="NPK"
-            name="npk"
-            defaultValue={data?.npk}
-            register={register}
-            error={errors?.npk}
-            required={true}
+          <Controller
+            name={"npk"}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="NPK"
+                name={field.name}
+                defaultValue={data?.npk ?? field.value}
+                register={register}
+                error={errors?.npk}
+                required={true}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="NIDN"
-            name="nidn"
-            defaultValue={data?.nidn}
-            register={register}
-            error={errors?.nidn}
-            required={true}
+          <Controller
+            name={"nidn"}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="NIDN"
+                name="nidn"
+                defaultValue={data?.nidn ?? field.value}
+                register={register}
+                error={errors?.nidn}
+                required={true}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="NUPTK"
-            name="nuptk"
-            defaultValue={data?.nuptk}
-            register={register}
-            error={errors?.nuptk}
+          <Controller
+            name={"nuptk"}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="NUPTK"
+                name="nuptk"
+                defaultValue={data?.nuptk ?? field.value}
+                register={register}
+                error={errors?.nuptk}
+              />
+            )}
           />
         </div>
 
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="Gelar Nama Depan"
-            name="frontTitle"
-            defaultValue={data?.frontTitle}
-            register={register}
-            error={errors?.frontTitle}
+          <Controller
+            name={"frontTitle"}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Gelar Nama Depan"
+                name={field.name}
+                defaultValue={data?.frontTitle ?? field.value}
+                register={register}
+                error={errors?.frontTitle}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="Nama Lengkap"
-            name="name"
-            defaultValue={data?.name}
-            register={register}
-            error={errors?.name}
-            required={true}
+          <Controller
+            name={"name"}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Nama Lengkap"
+                name={field.name}
+                defaultValue={data?.name ?? field.value}
+                register={register}
+                error={errors?.name}
+                required={true}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="Gelar Nama Belakang"
-            name="backTitle"
-            defaultValue={data?.backTitle}
-            register={register}
-            error={errors?.backTitle}
+          <Controller
+            name={"backTitle"}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Gelar Nama Belakang"
+                name={field.name}
+                defaultValue={data?.backTitle ?? field.value}
+                register={register}
+                error={errors?.backTitle}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
@@ -147,13 +183,19 @@ const LecturerForm = ({ setOpen, type, data, relatedData }: FormProps) => {
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="Tahun Masuk"
-            name="year"
-            defaultValue={data?.year}
-            register={register}
-            error={errors?.year}
-            required={true}
+          <Controller
+            name={"year"}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Tahun Masuk"
+                name={field.name}
+                defaultValue={data?.year ?? field.value}
+                register={register}
+                error={errors?.year}
+                required={true}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
@@ -239,32 +281,52 @@ const LecturerForm = ({ setOpen, type, data, relatedData }: FormProps) => {
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="Personal Email"
-            name="email"
-            defaultValue={data?.email}
-            register={register}
-            error={errors?.email}
+          <Controller
+            name={"email"}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Personal Email"
+                name={field.name}
+                defaultValue={data?.email ?? field.value}
+                register={register}
+                error={errors?.email}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="No. Handphone"
-            name="hp"
-            defaultValue={data?.hp}
-            register={register}
-            error={errors?.hp}
+          <Controller
+            name={"hp"}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="No. Handphone"
+                name={field.name}
+                defaultValue={data?.hp ?? field.value}
+                register={register}
+                error={errors?.hp}
+              />
+            )}
           />
         </div>
 
-
         <div className="flex flex-col gap-2 w-full md:w-3/5">
-          <label className="text-xs text-gray-500">Alamat</label>
-          <textarea
-            {...register("address")}
-            defaultValue={data?.address}
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
-          ></textarea>
+          <Controller
+            name="address"
+            control={control}
+            render={({ field }) => (
+              <div>
+                <label className="text-xs text-gray-500">Alamat</label>
+                <textarea
+                  {...field}
+                  {...register("address")}
+                  defaultValue={data?.address ?? field.value}
+                  className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+                ></textarea>
+              </div>
+            )}
+          />
           {errors.address?.message && (
             <p className="text-xs text-red-400">
               {errors.address.message.toString()}

@@ -1142,7 +1142,7 @@ export const createLecturer = async (state: stateType, data: FormData) => {
       data: {
         npk: validation.data.npk,
         nidn: validation.data.nidn,
-        nuptk: validation.data.nuptk,
+        nuptk: (validation.data.nuptk ? validation.data.nuptk : null),
         name: validation.data.name,
         frontTitle: validation.data.frontTitle,
         backTitle: validation.data.backTitle,
