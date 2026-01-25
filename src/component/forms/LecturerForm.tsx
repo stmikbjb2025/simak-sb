@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useActionState, useCallback, useEffect, useRef, useState } from "react";
+import { FormEvent, useActionState, useCallback, useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import InputField from "../InputField";
 import { LecturerInputs, lecturerSchema } from "@/lib/formValidationSchema";
@@ -303,6 +303,10 @@ const LecturerForm = ({ setOpen, type, data, relatedData }: FormProps) => {
               <InputField
                 label="No. Handphone"
                 name={field.name}
+                inputProps={{
+                  inputMode: "numeric",
+                  onInput: (e: FormEvent<HTMLInputElement>) => (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/[^0-9.]/g, '')
+                }}
                 defaultValue={data?.hp ?? field.value}
                 register={register}
                 error={errors?.hp}

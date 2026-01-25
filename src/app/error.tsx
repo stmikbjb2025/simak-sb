@@ -1,7 +1,6 @@
 // Error boundaries must be Client Components
 'use client'
 import Image from "next/image"
-import { useEffect } from "react"
 
 export default function Error({
   error,
@@ -10,9 +9,9 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  useEffect(() => {
-    console.error(error)
-  }, [])
+  // useEffect(() => {
+  //   console.error(error)
+  // }, [error])
   return (
     <div className="flex flex-col w-full min-h-screen items-center md:justify-center bg-accent-light/50">
       <Image src={'/global-error.png'} alt="global-error-pic" width={500} height={500} className="mt-4 md:mt-0" />

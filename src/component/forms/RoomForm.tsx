@@ -9,6 +9,7 @@ import { createRoom, updateRoom } from "@/lib/action";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { FormProps } from "@/lib/types/formtype";
+import { handleNumericInput } from "@/lib/utils";
 
 
 const RoomForm = ({ setOpen, type, data }: FormProps) => {
@@ -91,7 +92,10 @@ const RoomForm = ({ setOpen, type, data }: FormProps) => {
           <InputField
             label="Kapasitas"
             name="capacity"
-            type="number"
+            inputProps={{
+              inputMode: "numeric",
+              onInput: handleNumericInput,
+            }}
             defaultValue={data?.capacity}
             register={register}
             error={errors?.capacity}

@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { startTransition, useActionState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import InputField from "../InputField";
 import { UserInputs, userSchema } from "@/lib/formValidationSchema";
 import { createUserStudent, updateUserStudent } from "@/lib/action";
@@ -56,13 +56,19 @@ const OperatorUserForm = ({ setOpen, type, data, relatedData }: FormProps) => {
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/3">
-          <InputField
-            label="Email"
+          <Controller
             name="username"
-            defaultValue={data?.user?.email}
-            register={register}
-            error={errors?.username}
-            required={true}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Email"
+                name={field.name}
+                defaultValue={data?.user?.email ?? field.value}
+                register={register}
+                error={errors?.username}
+                required={true}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/3">

@@ -66,7 +66,7 @@ const LecturerListPage = async (
         major: true
       },
       orderBy: [
-        { name: "asc" },
+        { npk: "asc" },
       ],
       take: ITEM_PER_PAGE,
       skip: ITEM_PER_PAGE * (p - 1),
@@ -121,12 +121,11 @@ const LecturerListPage = async (
           />
           <div className="flex flex-col">
             <h3 className="text-sm font-semibold">
-              {item?.name}
-              {/* {lecturerName({
+              {lecturerName({
                 frontTitle: item?.frontTitle,
                 name: item?.name,
                 backTitle: item?.backTitle,
-              })} */}
+              })}
             </h3>
             <p className="text-xs text-gray-500 italic">NUPTK : {item?.nuptk || "-"}</p>
             <p className="text-xs text-gray-500 ">{item?.user?.email || ""}</p>

@@ -1,4 +1,4 @@
-import { Controller, FieldError } from "react-hook-form";
+import { FieldError } from "react-hook-form";
 
 interface InputFieldProps {
   label: string;

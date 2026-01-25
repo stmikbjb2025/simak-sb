@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { startTransition, useActionState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import InputField from "../InputField";
 import { OperatorInputs, operatorSchema } from "@/lib/formValidationSchema";
 import { createOperator, updateOperator } from "@/lib/action";
@@ -14,6 +14,7 @@ import { FormProps } from "@/lib/types/formtype";
 const OperatorForm = ({ setOpen, type, data }: FormProps) => {
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<OperatorInputs>({
@@ -55,21 +56,33 @@ const OperatorForm = ({ setOpen, type, data }: FormProps) => {
           </div>
         )}
         <div className="flex flex-col gap-2 w-full md:w-1/2">
-          <InputField
-            label="Nama Lengkap"
+          <Controller
             name="name"
-            defaultValue={data?.name}
-            register={register}
-            error={errors?.name}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Nama Lengkap"
+                name={field.name}
+                defaultValue={data?.name ?? field.value}
+                register={register}
+                error={errors?.name}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-2/5">
-          <InputField
-            label="Bagian"
+          <Controller
             name="department"
-            defaultValue={data?.department}
-            register={register}
-            error={errors?.department}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Bagian"
+                name={field.name}
+                defaultValue={data?.department ?? field.value}
+                register={register}
+                error={errors?.department}
+              />
+            )}
           />
         </div>
       </div>

@@ -14,7 +14,7 @@ import { FormProps } from "@/lib/types/formtype";
 
 
 const ClassForm = ({ setOpen, type, data, relatedData }: FormProps) => {
-  const { rooms, lecturers, courses } = relatedData;
+  const { lecturers, courses } = relatedData;
   const {
     register,
     handleSubmit,
