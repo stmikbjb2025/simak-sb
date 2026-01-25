@@ -37,6 +37,36 @@ export function handlePrismaError(error: unknown): never {
             400
           );
         }
+        if (Array.isArray(error.meta?.target) && (error.meta?.target as string[]).includes("code")) {
+          throw new AppError(
+            "Kode sudah ada dan tidak boleh duplikat.",
+            400
+          );
+        }
+        if (Array.isArray(error.meta?.target) && (error.meta?.target as string[]).includes("acronym")) {
+          throw new AppError(
+            "Akronim sudah ada dan tidak boleh duplikat.",
+            400
+          );
+        }
+        if (Array.isArray(error.meta?.target) && (error.meta?.target as string[]).includes("npk")) {
+          throw new AppError(
+            "NPK sudah ada dan tidak boleh duplikat.",
+            400
+          );
+        }
+        if (Array.isArray(error.meta?.target) && (error.meta?.target as string[]).includes("nidn")) {
+          throw new AppError(
+            "NIDN sudah ada dan tidak boleh duplikat.",
+            400
+          );
+        }
+        if (Array.isArray(error.meta?.target) && (error.meta?.target as string[]).includes("nuptk")) {
+          throw new AppError(
+            "NUPTK sudah ada dan tidak boleh duplikat.",
+            400
+          );
+        }
         throw new AppError("Data sudah ada dan tidak boleh duplikat.", 400);
 
       case "P2003":

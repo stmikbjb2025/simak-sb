@@ -57,37 +57,55 @@ const CourseForm = ({ setOpen, type, data, relatedData }: FormProps) => {
           </div>
         )}
         <div className="flex flex-col gap-2 w-full md:w-3/12">
-          <InputField
-            label="Kode Matkul"
+          <Controller
             name="code"
-            defaultValue={data?.code}
-            register={register}
-            error={errors?.code}
-            required={true}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Kode Matkul"
+                name={field.name}
+                defaultValue={data?.code ?? field.value}
+                register={register}
+                error={errors?.code}
+                required={true}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-3/12">
-          <InputField
-            label="SKS"
+          <Controller
             name="sks"
-            defaultValue={data?.sks}
-            register={register}
-            error={errors?.sks}
-            required={true}
-            inputProps={{
-              inputMode: "numeric",
-              onInput: (e: FormEvent<HTMLInputElement>) => (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/[^0-9.]/g, '')
-            }}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="SKS"
+                name={field.name}
+                defaultValue={data?.sks ?? field.value}
+                register={register}
+                error={errors?.sks}
+                required={true}
+                inputProps={{
+                  inputMode: "numeric",
+                  onInput: (e: FormEvent<HTMLInputElement>) => (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/[^0-9.]/g, '')
+                }}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-5/12">
-          <InputField
-            label="Nama Mata Kuliah"
+          <Controller
             name="name"
-            defaultValue={data?.name}
-            register={register}
-            error={errors?.name}
-            required={true}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Nama Mata Kuliah"
+                name={field.name}
+                defaultValue={data?.name ?? field.value}
+                register={register}
+                error={errors?.name}
+                required={true}
+              />
+            )}
           />
         </div>
       </div>

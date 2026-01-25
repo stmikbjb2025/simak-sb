@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useActionState, useCallback, useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Image from "next/image";
@@ -96,43 +96,61 @@ const StudentForm = ({ setOpen, type, data, relatedData }: FormProps) => {
           </div>
         )}
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="NIM"
+          <Controller
             name="nim"
-            defaultValue={data?.nim}
-            inputProps={{
-              readOnly: isRevision,
-              inputMode: "numeric",
-              onInput: handleNumericInput,
-            }}
-            register={register}
-            error={errors?.nim}
-            required={true}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="NIM"
+                name={field.name}
+                defaultValue={data?.nim ?? field.value}
+                inputProps={{
+                  readOnly: isRevision,
+                  inputMode: "numeric",
+                  onInput: handleNumericInput,
+                }}
+                register={register}
+                error={errors?.nim}
+                required={true}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="Nama Lengkap"
+          <Controller
             name="name"
-            defaultValue={data?.name}
-            register={register}
-            error={errors?.name}
-            required={true}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Nama Lengkap"
+                name={field.name}
+                defaultValue={data?.name ?? field.value}
+                register={register}
+                error={errors?.name}
+                required={true}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="Tahun Mendaftar"
+          <Controller
             name="year"
-            defaultValue={data?.year}
-            inputProps={{
-              readOnly: isRevision,
-              inputMode: "numeric",
-              onInput: handleNumericInput,
-            }}
-            register={register}
-            error={errors?.year}
-            required={true}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Tahun Mendaftar"
+                name={field.name}
+                defaultValue={data?.year ?? field.value}
+                inputProps={{
+                  readOnly: isRevision,
+                  inputMode: "numeric",
+                  onInput: handleNumericInput,
+                }}
+                register={register}
+                error={errors?.year}
+                required={true}
+              />
+            )}
           />
         </div>
         <div className={isRevision ? "hidden" : "flex flex-col gap-2 w-full md:w-1/4"}>
@@ -263,73 +281,115 @@ const StudentForm = ({ setOpen, type, data, relatedData }: FormProps) => {
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="Personal Email"
+          <Controller
             name="email"
-            type="email"
-            defaultValue={data?.email}
-            register={register}
-            error={errors?.email}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Personal Email"
+                name={field.name}
+                type="email"
+                defaultValue={data?.email ?? field.value}
+                register={register}
+                error={errors?.email}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="No. Handphone"
+          <Controller
             name="phone"
-            type="tel"
-            inputProps={{
-              inputMode: "numeric",
-              onInput: handleNumericInput,
-            }}
-            defaultValue={data?.hp}
-            register={register}
-            error={errors?.phone}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="No. Handphone"
+                name={field.name}
+                type="tel"
+                inputProps={{
+                  inputMode: "numeric",
+                  onInput: handleNumericInput,
+                }}
+                defaultValue={data?.hp ?? field.value}
+                register={register}
+                error={errors?.phone}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="Tempat lahir"
+          <Controller
             name="placeOfBirth"
-            defaultValue={data?.placeOfBirth}
-            register={register}
-            error={errors?.placeOfBirth}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Tempat lahir"
+                name={field.name}
+                defaultValue={data?.placeOfBirth ?? field.value}
+                register={register}
+                error={errors?.placeOfBirth}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/4">
-          <InputField
-            label="Tanggal lahir"
+          <Controller
             name="birthday"
-            type="date"
-            defaultValue={data?.birthday ? moment(data.birthday).format("yyyy-MM-DD") : undefined}
-            register={register}
-            error={errors?.birthday}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Tanggal lahir"
+                name={field.name}
+                type="date"
+                defaultValue={data?.birthday ? moment(data.birthday).format("yyyy-MM-DD") : undefined}
+                register={register}
+                error={errors?.birthday}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-11/12">
-          <label className="text-xs text-gray-500">Alamat Asal/Domisili</label>
-          <textarea
-            {...register("domicile")}
-            defaultValue={data?.domicile}
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
-          ></textarea>
-          {errors.domicile?.message && (
-            <p className="text-xs text-red-400">
-              {errors.domicile.message.toString()}
-            </p>
-          )}
+          <Controller
+            name="domicile"
+            control={control}
+            render={({ field }) => (
+              <>
+                <label className="text-xs text-gray-500">Alamat Asal/Domisili</label>
+                <textarea
+                  {...field}
+                  {...register("domicile")}
+                  defaultValue={data?.domicile ?? field.value}
+                  className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+                ></textarea>
+                {errors.domicile?.message && (
+                  <p className="text-xs text-red-400">
+                    {errors.domicile.message.toString()}
+                  </p>
+                )}
+              </>
+            )}
+          />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-11/12">
-          <label className="text-xs text-gray-500">Alamat Sekarang</label>
-          <textarea
-            {...register("address")}
-            defaultValue={data?.address}
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
-          ></textarea>
-          {errors.address?.message && (
-            <p className="text-xs text-red-400">
-              {errors.address.message.toString()}
-            </p>
-          )}
+          <Controller
+            name="address"
+            control={control}
+            render={({ field }) => (
+              <>
+                <label className="text-xs text-gray-500">Alamat Sekarang</label>
+                <textarea
+                  {...field}
+                  {...register("address")}
+                  defaultValue={data?.address ?? field.value}
+                  className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+                ></textarea>
+                {errors.address?.message && (
+                  <p className="text-xs text-red-400">
+                    {errors.address.message.toString()}
+                  </p>
+                )}
+              </>
+            )}
+          />
         </div>
       </div >
       <span className="text-xs text-gray-400 font-medium">
@@ -337,54 +397,87 @@ const StudentForm = ({ setOpen, type, data, relatedData }: FormProps) => {
       </span>
       <div className="flex justify-between flex-wrap gap-4">
         <div className="flex flex-col gap-2 w-full md:w-5/12">
-          <InputField
-            label="Nama Orang Tua/Wali"
+          <Controller
             name="guardianName"
-            register={register}
-            defaultValue={data?.guardianName}
-            error={errors?.guardianName}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Nama Orang Tua/Wali"
+                name={field.name}
+                register={register}
+                defaultValue={data?.guardianName ?? field.value}
+                error={errors?.guardianName}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-5/12">
-          <InputField
-            label="NIK Orang Tua/Wali"
+          <Controller
             name="guardianNIK"
-            defaultValue={data?.guardianNIK}
-            register={register}
-            error={errors?.guardianNIK}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="NIK Orang Tua/Wali"
+                name={field.name}
+                defaultValue={data?.guardianNIK ?? field.value}
+                register={register}
+                error={errors?.guardianNIK}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-5/12">
-          <InputField
-            label="Pekerjaan Orang Tua/Wali"
+          <Controller
             name="guardianJob"
-            register={register}
-            defaultValue={data?.guardianJob}
-            error={errors?.guardianJob}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Pekerjaan Orang Tua/Wali"
+                name={field.name}
+                register={register}
+                defaultValue={data?.guardianJob ?? field.value}
+                error={errors?.guardianJob}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-5/12">
-          <InputField
-            label="No. Telp/HP Orang Tua/Wali"
+          <Controller
             name="guardianHp"
-            register={register}
-            defaultValue={data?.guardianHp}
-            error={errors?.guardianHp}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="No. Telp/HP Orang Tua/Wali"
+                name={field.name}
+                register={register}
+                defaultValue={data?.guardianHp ?? field.value}
+                error={errors?.guardianHp}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-11/12">
-          <label className="text-xs text-gray-500">Alamat Orang Tua/Wali</label>
-          <textarea
-            {...register("guardianAddress")}
-            defaultValue={data?.guardianAddress}
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
-            placeholder="Alamat orang tua/wali"
-          ></textarea>
-          {errors.guardianAddress?.message && (
-            <p className="text-xs text-red-400">
-              {errors.guardianAddress.message.toString()}
-            </p>
-          )}
+          <Controller
+            name="guardianAddress"
+            control={control}
+            render={({ field }) => (
+              <>
+                <label className="text-xs text-gray-500">Alamat Orang Tua/Wali</label>
+                <textarea
+                  {...field}
+                  {...register("guardianAddress")}
+                  defaultValue={data?.guardianAddress ?? field.value}
+                  className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+                  placeholder="Alamat orang tua/wali"
+                ></textarea>
+                {errors.guardianAddress?.message && (
+                  <p className="text-xs text-red-400">
+                    {errors.guardianAddress.message.toString()}
+                  </p>
+                )}
+              </>
+            )}
+          />
         </div>
       </div>
       <span className="text-xs text-gray-400 font-medium">
@@ -392,21 +485,33 @@ const StudentForm = ({ setOpen, type, data, relatedData }: FormProps) => {
       </span>
       <div className="flex justify-between flex-wrap gap-4">
         <div className="flex flex-col gap-2 w-full md:w-2/5">
-          <InputField
-            label="Nama Ibu Kandung"
+          <Controller
             name="motherName"
-            defaultValue={data?.motherName}
-            register={register}
-            error={errors?.motherName}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Nama Ibu Kandung"
+                name={field.name}
+                defaultValue={data?.motherName ?? field.value}
+                register={register}
+                error={errors?.motherName}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-2/5">
-          <InputField
-            label="NIK Ibu Kandung"
+          <Controller
             name="motherNIK"
-            defaultValue={data?.motherNIK}
-            register={register}
-            error={errors?.motherNIK}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="NIK Ibu Kandung"
+                name={field.name}
+                defaultValue={data?.motherNIK ?? field.value}
+                register={register}
+                error={errors?.motherNIK}
+              />
+            )}
           />
         </div>
       </div>

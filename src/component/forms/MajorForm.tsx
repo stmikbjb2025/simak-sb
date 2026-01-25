@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { startTransition, useActionState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import InputField from "../InputField";
 import { MajorInputs, majorSchema } from "@/lib/formValidationSchema";
 import { createMajor, updateMajor } from "@/lib/action";
@@ -17,6 +17,7 @@ const PermissionForm = ({ setOpen, type, data }: FormProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<MajorInputs>({
     resolver: zodResolver(majorSchema)
   })
@@ -53,30 +54,48 @@ const PermissionForm = ({ setOpen, type, data }: FormProps) => {
           </div>
         )}
         <div className="flex flex-col gap-2 w-full md:w-1/5">
-          <InputField
-            label="Kode Angka"
+          <Controller
             name="numberCode"
-            defaultValue={data?.numberCode}
-            register={register}
-            error={errors?.numberCode}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Kode Angka"
+                name={field.name}
+                defaultValue={data?.numberCode ?? field.value}
+                register={register}
+                error={errors?.numberCode}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/5">
-          <InputField
-            label="Kode Huruf"
+          <Controller
             name="stringCode"
-            defaultValue={data?.stringCode}
-            register={register}
-            error={errors?.stringCode}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Kode Huruf"
+                name={field.name}
+                defaultValue={data?.stringCode ?? field.value}
+                register={register}
+                error={errors?.stringCode}
+              />
+            )}
           />
         </div>
         <div className="flex flex-col gap-2 w-full md:w-1/2">
-          <InputField
-            label="Nama Program Studi"
+          <Controller
             name="name"
-            defaultValue={data?.name}
-            register={register}
-            error={errors?.name}
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Nama Program Studi"
+                name={field.name}
+                defaultValue={data?.name ?? field.value}
+                register={register}
+                error={errors?.name}
+              />
+            )}
           />
         </div>
       </div>

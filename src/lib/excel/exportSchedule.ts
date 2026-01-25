@@ -1,6 +1,5 @@
 import { format } from 'date-fns';
 import ExcelJS from 'exceljs';
-import { lecturerName } from '../utils';
 
 export async function exportSchedule({ data }: { data: any }) {
   const workbook = new ExcelJS.Workbook();
@@ -10,7 +9,7 @@ export async function exportSchedule({ data }: { data: any }) {
   
     // Tinggi Row masing masing worksheet
     worksheet.properties.defaultRowHeight = 30;
-    const strColumn = ['A', 'B', 'C', 'D','E', 'F', 'G', 'H', 'I', 'J']
+    // const strColumn = ['A', 'B', 'C', 'D','E', 'F', 'G', 'H', 'I', 'J']
     const headerTable = [
       'HARI',
       'JAM',

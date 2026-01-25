@@ -322,12 +322,6 @@ export interface KhsDetailTypes {
   successor?: KhsDetailBaseTypes
 }
 
-interface testTypes {
-  id: number,
-  name: string,
-};
-
-
 export enum AnnouncementKhs {
   DRAFT = "DRAFT",
   SUBMITTED = "SUBMITTED",
